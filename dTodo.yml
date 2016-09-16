@@ -13,15 +13,15 @@ dTodoList:
     script:
     - choose <c.args.get[1]||null>:
       - case add:
-        - if <c.args.get[2].is[==].to[ ]> {
-          - narrate "<&c>[dTO-DO] Please say a name for the task you want to add."
+        - if <c.args.get[2].to[99999].trim.length||0> == 0 {
+          - narrate "<&c>[dTO-DO] Please specify a name for the task you want to add."
           - queue clear
         }
         - flag player "dtodo:->:<c.args.as_list.get[2].to[9999].space_separated>"
         - narrate "<&d>[dTO-DO] The task have been added to your to-do list. You now have <player.flag[dtodo].as_list.size.round> to-do task listed."
       - case check:
-        - if <c.args.get[2].is[==].to[ ]> {
-          - narrate "<&c>[dTO-DO] Please give the number of the task you want to check."
+        - if <c.args.get[2].trim.length||0> == 0 {
+          - narrate "<&c>[dTO-DO] Please specify the number of the task you want to check."
           - queue clear
         }
         - if <player.has_flag[dtodo].not> {
@@ -48,3 +48,9 @@ dTodoList:
         - foreach <player.flag[dtodo].as_list> {
           - narrate "<yellow>- [%loop_index%] %value%"
         }
+dTodoList_Tracker:
+    type: world
+    events:
+      on system time hourly:
+      on system time hourly:
+      - webget "http://stats.denizenscript.com/tracker?script=112&version=1.0"
