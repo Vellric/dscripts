@@ -1,0 +1,50 @@
+dTodoList:
+    type: command
+    name: dtodo
+    permission: dtodo
+    permission message: <&c>Sorry <player.name>, you don't have the permission for using this command.
+    usage: /dtodo <&lt>add/check<&gt>
+    description: A to-do list powered by Denizen.
+    allowed help:
+    - determine <player.has_permission[dtodo]>||<player.is_op>||<context.server>
+    aliases:
+    - todo
+    - task
+    script:
+    - choose <c.args.get[1]||null>:
+      - case add:
+        - if <c.args.get[2].is[==].to[ ]> {
+          - narrate "<&c>[dTO-DO] Please say a name for the task you want to add."
+          - queue clear
+        }
+        - flag player "dtodo:->:<c.args.as_list.get[2].to[9999].space_separated>"
+        - narrate "<&d>[dTO-DO] The task have been added to your to-do list. You now have <player.flag[dtodo].as_list.size.round> to-do task listed."
+      - case check:
+        - if <c.args.get[2].is[==].to[ ]> {
+          - narrate "<&c>[dTO-DO] Please give the number of the task you want to check."
+          - queue clear
+        }
+        - if <player.has_flag[dtodo].not> {
+          - narrat "<&c>You don't have any task in your dtodo list right now. You can add them with <context.alias> add."
+          - queue clear
+        }
+        - if !<player.flag[dtodo].as_list.size> >= <c.args.get[2]> {
+          - narrate "<&c>You don't have task at the line number <c.args.get[2]>. Right now, you have <pl.flag[dtodo].as_list.size.round> task in your to-do list. You can add more with <context.alias> add."
+          - queue clear
+        }
+        - flag player dtodo[<c.args.get[2]>]:<-:
+        - if <pl.has_flag[dtodo].not> {
+          - narrate "<&d>[dTO-DO] Great! Your to-do list is now empty. Create new task with '<context.alias> add'!"
+          - queue clear
+        }
+        - narrate "<&d>[dTO-DO] The task have been checked. You still have <pl.flag[dtodo].as_list.size.round> tasks to-do. Get back to work!"
+      - case null:
+        - if <player.has_flag[dtodo].not> {
+          - narrate "<&d>[dTO-DO] Your to-do list is empty right now. You can add tasks to it with <context.alias> add."
+          - narrate "<&d>[dTO-DO] When you will want to remove task from it, do <context.alias> check [task_number]."
+          - queue clear
+        }
+        - narrate "<&a>###### YOUR dTO-DO LIST ######"
+        - foreach <player.flag[dtodo].as_list> {
+          - narrate "<yellow>- [%loop_index%] %value%"
+        }
