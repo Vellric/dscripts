@@ -1,0 +1,36 @@
+###################################################################
+# Guide pour les flags Denizen
+# ----------------------------
+# Pour ajouter un flag avec une valeur imposée
+# - flag player <nom_du_flag>:<valeur>
+# Pour augmenter de '1' la valeur d'un flag en chiffre
+# - flag player <nom_du_flag>:++
+# Pour ajouter un flag avec une valeur additionnée qui n'est pas forcément '1' (exemple: 1+1)
+# - flag player <nom_du_flag>:+:<valeur>
+# Ce que nous venons de faire en haut est faisable avec les soustractions également.
+# Pour ajouter un élément à une liste en flag
+# - flag player <nom_du_flag>:->:<valeur>
+# Pour retirer un élément d'une liste en flag
+# - flag player <nom_du_flag>:<-:<valeur>
+#####################
+# Exemples concrets:
+# MonBeauFlag:
+#     type: world
+#     events:  
+#       on player death:
+#        - random {
+#          - flag player randomEvent:potato
+#          - flag player randomEvent:aubergine
+#          - flag player randomEvent:tomato
+#        }
+#       - flag player nombreMorts:++
+#       - narrate "Vous êtes mort <player.flags[nombreMorts]> fois!"
+#        - narrate "Votre truc random est <player.flag[randomEvent]>!"
+#       
+# MaBelleCommande:
+#     type: command
+#     name: cheat
+#     script:  
+#     - flag player money:+:200
+#     - narrate "Vous avez <player.flag[money]> $"
+#
