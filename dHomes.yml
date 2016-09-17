@@ -13,7 +13,7 @@ dHomes:
         - narrate "<&c>Usage: /<c.alias> <&lt>new/tp/list/remove<&gt>"
       - case new:
         - if <c.args.get[2].trim.length||0> == 0 {
-          - narrate "<&c>[dHomes] Please specify a name for the home you want to create."
+          - narrate "<&c>[dHomes] Please specify the name of the home you want to create."
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
@@ -22,7 +22,7 @@ dHomes:
             - yaml load:<pl.uuid>.yml id:<pl.uuid>
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:<player.location>
-        - narrate "<&d>[dHomes] Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do '/<context.alias> tp <c.args.get[2]>'."
+        - narrate "<&d>[dHomes] Your new home '<&r><&b><c.args.get[2]><&r><&d>' has been created. You can now do '/<context.alias> tp <c.args.get[2]>'."
       - case tp:
         - if <c.args.get[2].trim.length||0> == 0 {
           - narrate "<&c>[dHomes] Please specify the name of the home where you want to teleport."
@@ -36,22 +36,22 @@ dHomes:
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
-          - "<&c>[dHomes] Sorry, you don't have any homes to delete right now. You can create one with '/<c.alias> new'."
+          - "<&c>[dHomes] Sorry, you don't have any home to delete right now. You can create one with '/<c.alias> new'."
           - queue clear
         }
         - if <yaml[<pl.uuid>_dHomes].contains[<c.args.get[2]>].not> {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes named '<&b><c.args.get[2]><&d>'."
+          - narrate "<&c>[dHomes] Sorry, you don't have any home named '<&b><c.args.get[2]><&d>'."
           - queue clear
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:!
         - narrate "<&d>[dHomes] Your home named '<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'."
       - case list:
         - if !<server.has_fille[/dHomes/<pl.uuid>.yml]> {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'."
+          - narrate "<&c>[dHomes] Sorry, you don't have any home to list right now. You can create one with '/<c.alias> new'."
           - queue clear
         }
         - if <yaml[<pl.uuid>_dHomes].list_keys[].size||0> == 0 {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'." 
+          - narrate "<&c>[dHomes] Sorry, you don't have any home to list right now. You can create one with '/<c.alias> new'." 
           - queue clear
         }
         - narrate "<&a>###### dHomes List ######"
