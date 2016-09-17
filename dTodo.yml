@@ -1,6 +1,7 @@
 dTodoList:
     type: command
     name: dtodo
+    debug: false
     permission: dtodo
     permission message: <&c>Sorry <player.name>, you don't have the permission to use this command.
     usage: /dtodo <&lt>add/check<&gt>
