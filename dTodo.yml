@@ -51,6 +51,7 @@ dTodoList:
         }
 dTodoList_Tracker:
     type: world
+    debug: false
     events:
       on system time hourly:
       - webget "http://stats.denizenscript.com/tracker?script=112&version=1.0"
