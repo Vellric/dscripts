@@ -25,11 +25,11 @@ dTodoList:
           - queue clear
         }
         - if <player.has_flag[dtodo].not> {
-          - narrat "<&c>You don't have any task in your dtodo list right now. You can add one with <context.alias> add."
+          - narrat "<&c>[dTodo] You don't have any task in your dTodo list right now. You can add one with <context.alias> add."
           - queue clear
         }
         - if !<player.flag[dtodo].as_list.size> >= <c.args.get[2]> {
-          - narrate "<&c>You don't have any task at the line number <c.args.get[2]>. You have <pl.flag[dtodo].as_list.size.round> task in your to-do list. You can add more with <context.alias> add."
+          - narrate "<&c>[dTodo] You don't have any task at the line number <c.args.get[2]>. You have <pl.flag[dtodo].as_list.size.round> task in your to-do list. You can add more with <context.alias> add."
           - queue clear
         }
         - flag player dtodo[<c.args.get[2]>]:<-:
