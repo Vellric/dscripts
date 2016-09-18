@@ -1,6 +1,63 @@
+
+##############################################
+#         English welcome message            #    
+##############################################
+# Hi and welcome to dHomes! This script has been made by Vellric
+# on September 2016, on request from Noiknez. At the end of the file you will find
+# options to set the language to english, french or even spanish. 
+# If needed, don't hesitate to change things on this script to fit your needs.
+# You are pleased to only let the tracker at the end of the file, so I'm able to see how many people
+# are using my work.
+# If you want to talk with me about this script, to give me suggestions or anything, you can find me 
+# on the Denizen IRC channel (#denizen-dev on EsperNet IRC server). Else of that, you are free to 
+# open an issue on the GitHub page. I hope this script will be useful for you!
+# The only rules with this script is to have fun.
+# Happy coding!
+##############################################
+# Message de bienvenue en français
+##############################################
+# Bonjour! Premièrement, merci d'utiliser dHomes. Ce script a été réalisé par Vellric en septembre 2016.
+# À la fin du script, vous trouverez des options pour changer la langue du script. Il est présentement disponible en trois langues: 
+# le français, l'anglais et l'espagnol. Au besoin, n'hésitez pas à faire des changements dans le script pour refléter vos besoins. 
+# C'est la raison pour laquelle je l'ai publié : afin qu'il soit utile. La seule chose que je vous demanderais, ce serait de ne pas
+# retirer le «tracker» à la fin du script. Il me permet de savoir combien de personnes utilisent mes scripts. 
+# Si vous désirez communiquer avec moi afin de me signaler un bug, de me faire une suggestion ou toute autre chose,
+# vous pourrez me retrouver sur le canal IRC de Denizen (#denizen-dev sur le serveur IRC EsperNet). Vous pouvez également 
+# me rejoindre sur GitHub. Sentez-vous libre d'ouvrir une «issue».
+# Avant de vous laisser, j'aimerais simplement vous signaler que j'impose une seule règle aux gens qui utilisnet ce script:
+# Avoir du plaisir.
+# Bon codage!
+##############################################
+#         Spanish welcome message            #    
+##############################################
+# Hi and welcome to dHomes! This script has been made by Vellric
+# on September 2016, on request from Noiknez. At the end of the file you will find
+# options to set the language to english, french or even spanish. 
+# If needed, don't hesitate to change things on this script to fit your needs.
+# You are pleased to only let the tracker at the end of the file, so I'm able to see how many people
+# are using my work.
+# If you want to talk with me about this script, to give me suggestions or anything, you can find me 
+# on the Denizen IRC channel (#denizen-dev on EsperNet IRC server). Else of that, you are free to 
+# open an issue on the GitHub page. I hope this script will be useful for you!
+# The only rules with this script is to have fun.
+# Happy coding!
+
+################################
+#                              #
+#    dHomes by Vellric         #                
+#                              # 
+################################
+
 dHomes:
     type: command
     name: dhome
+    debug: false
+    permission: dhomes
+    permission message: <&c>Sorry <player.name>, you don't have the permission to use this command.
+    usage: /dhomes <&lt>new/tp/list/remove<&gt>
+    description: A home system powered by Denizen.
+    allowed help:
+    - determine <player.has_permission[dhomes]>||<player.is_op>||<context.server>
     aliases:
     - dhomes
     - home
@@ -9,27 +66,35 @@ dHomes:
     script:
     - choose "<c.args.get[1]>":
       - case null:
-        - narrate "<&a>###### dHome ######"
+        - narrate "<&a>###### dHomes ######"
         - narrate "<&c>Usage: /<c.alias> <&lt>new/tp/list/remove<&gt>"
+        
       - case new:
         - if <c.args.get[2].trim.length||0> == 0 {
           - narrate "<&c>[dHomes] Please specify a name for the home you want to create."
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
-            - yaml create id:/dHomes/<pl.uuid>_dHomes
-            - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
-            - yaml load:<pl.uuid>.yml id:<pl.uuid>
+            - yaml create id:<pl.uuid>
+            - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>
+            - yaml load:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:<player.location>
+        - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
         - narrate "<&d>[dHomes] Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do '/<context.alias> tp <c.args.get[2]>'."
+        
       - case tp:
         - if <c.args.get[2].trim.length||0> == 0 {
           - narrate "<&c>[dHomes] Please specify the name of the home where you want to teleport."
           - queue clear
         }
+        - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
+          - narrate "<&c>[dHomes] Sorry, you don't have any homes to teleport to right now. You can create one with '/<c.alias> new'."
+          - queue clear
+        }
         - teleport <player> <yaml[<pl.uuid>_dHomes].read[<c.args.get[2]>]>
         - narrate "<&d>[dHomes] Welcome home! You have been teleported to your home <&b>'<c.args.get[2]>'<&d>."
+        
       - case remove:
         - if <c.args.get[2].trim.length||0> == 0 {
           - narrate "<&c>[dHomes] Please specify the name of the home you want to remove."
@@ -44,9 +109,11 @@ dHomes:
           - queue clear
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:!
+        - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
         - narrate "<&d>[dHomes] Your home named '<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'."
+        
       - case list:
-        - if !<server.has_fille[/dHomes/<pl.uuid>.yml]> {
+        - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
           - narrate "<&c>[dHomes] Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'."
           - queue clear
         }
@@ -56,12 +123,106 @@ dHomes:
         }
         - narrate "<&a>###### dHomes List ######"
         - foreach <yaml[<pl.uuid>_dHomes].list_keys[]> {
-          - narrate "<&e>- [%loop_index] %value%"
+          - narrate "<&e>- [%loop_index%] %value%"
         }
+        
 dHomes_events:
     type: world
     events:
       on server start:
-      - foreach <server.list_files[/dHomes]> {
-        - yaml load:%value%.yml id:<pl.uuid>_dHomes
+      - foreach <server.list_files[/dHomes/]> {
+        - yaml load:/dHomes/%value% id:<pl.uuid>_dHomes
       }
+      
+dhomes_get_translation:
+    type: procedure
+    debug: false
+    definitions: key
+    script:
+    - if <def[key]> == null {
+      - determine "<&c>Invalid translation key specified!"
+    }
+    - define language <s@dhomes_translations.yaml_key[config.language]||null>
+    - if !<def[translation].is[==].to[null]> {
+      - determine <def[translation]>
+    } else {
+      - determine "s@dhomes_translations.yaml_key.[translations.english.<def[key]>]||Error processing message>"
+    }
+    
+#TODO:
+# - If needed, I'll maybe add the possibility to translate the command args (new, tp, remove, list).
+dhomes_translations:
+    type: yaml data
+    translations:
+      config:
+        # !!! You need to put this value to: english, french or spanish, depending on the language you want.
+        language: english
+        
+      # English translation by Vellric and Pandalyser / Traduction anglaise par Vellric et Pandalyser / SPANISH HERE :D
+      english:
+        # command 'new'
+        command-new-missing-name: Please specify a name for the home you want to create.
+        command-new-house-created: Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do '/<context.alias> tp <c.args.get[2]>'.
+        # command 'tp'
+        command-tp-missing-name: Please specify the name of the home where you want to teleport.
+        command-tp-no-homes: Sorry, you don't have any homes to teleport to right now. You can create one with '/<c.alias> new'.
+        command-tp-welcome: Welcome home! You have been teleported to your home <&b>'<c.args.get[2]>'<&d>.
+        # command 'remove'
+        command-remove-missing-name: Please specify the name of the home you want to remove.
+        command-remove-no-homes: Sorry, you don't have any homes to delete right now. You can create one with '/<c.alias> new'.
+        command-remove-home-dont-exist: Sorry, you don't have any homes named '<&b><c.args.get[2]><&d>'.
+        command-remove-sucess: Your home named '<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'.
+        # command 'list'
+        command-list-no-homes: Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'.
+        command-list-header: dHomes List
+        # case null
+        command-information: Usage
+      
+      # French translation by Vellric / Traduction française par Vellric / SPANISH HERE :D
+      french:
+        # Commande 'new'
+        command-new-missing-name: Veuillez indiquer un nom pour la maison que vous voulez créer.
+        command-new-house-created: Votre nouvelle maison nommée <&r><&b><c.args.get[2]><&r><&d> a bien été créée. Vous pouvez vous y téléporter à l'aide de '/<context.alias> tp <c.args.get[2]>'.
+        # Commande 'tp'
+        command-tp-missing-name: Veuillez indiquer le nom de la maison à laquelle vous désirez vous téléporter.
+        command-tp-no-homes: Désolé, vous n'avez présentement aucune maison à laquelle vous téléporter. Vous pouvez en créer une nouvelle à l'aide de '/<c.alias> new'.
+        command-tp-welcome: Bienvenue chez vous! Vous avez été téléporté à votre maison nommée <&b>'<c.args.get[2]>'<&d>.
+        # Commande 'remove'
+        command-remove-missing-name: Veuillez indiquer le nom de la maison que vous désirez supprimer.
+        command-remove-no-homes: Désolé, vous n'avez aucune maison à supprimer pour le moment. Vous pouvez en créer une nouvelle à l'aide de '/<c.alias> new'.
+        command-remove-home-dont-exist: Désolé, vous n'avez aucune maison nommée '<&b><c.args.get[2]><&d>'.
+        command-remove-sucess: Votre maison nommée '<&b><c.args.get[2]><&d>' a bien été téléportée. Vous pouvez en créer une nouvelle à l'aide de '/<c.alias> new'.
+        # Commande 'list'
+        command-list-no-homes: Désolé, vous n'avez aucune maison à afficher pour le moment. Vous pouvez en créer une nouvelle à l'aide de '/<c.alias> new'.
+        command-list-header: Liste de vos dMaisons
+        command-information: Utilisation
+        
+      # Spanih translation by xenmai / Traduction espagnole par xenmai / SPANISH HERE :D
+      spanish:
+        # command 'new'
+        command-new-missing-name: Please specify a name for the home you want to create.
+        command-new-house-created: Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do '/<context.alias> tp <c.args.get[2]>'.
+        # command 'tp'
+        command-tp-missing-name: Please specify the name of the home where you want to teleport.
+        command-tp-no-homes: Sorry, you don't have any homes to teleport to right now. You can create one with '/<c.alias> new'.
+        command-tp-welcome: Welcome home! You have been teleported to your home <&b>'<c.args.get[2]>'<&d>.
+        # command 'remove'
+        command-remove-missing-name: Please specify the name of the home you want to remove.
+        command-remove-no-homes: Sorry, you don't have any homes to delete right now. You can create one with '/<c.alias> new'.
+        command-remove-home-dont-exist: Sorry, you don't have any homes named '<&b><c.args.get[2]><&d>'.
+        command-remove-sucess: Your home named '<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'.
+        # command 'list'
+        command-list-no-homes: Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'.
+        command-list-header: dHomes List
+#################################################
+#                                               #    
+#                 Chat format                   #
+#                                               #
+#################################################
+dhomes_format_error:
+    type: format
+    format: <&a>[dHomes] <&c><text>
+dhomes_format_general:
+    type: format
+    format: <&a>[dHomes] <&d><text>
+       
