@@ -30,18 +30,18 @@ dTodoList:
           - narrat "<&3>[dTO-DO] <&c><parse:<proc[dtodo_get_translation].context[command-check-no-task]>>"
           - queue clear
         }
-        - if !<player.flag[dtodo].as_list.size> >= <c.args.get[2]> {
-          - narrate "<&c>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-no-task-line]>>"
+        - if <player.flag[dtodo].as_list.size.is[OR_MORE].than[<c.args.get[2]>].not> {
+          - narrate "<&3>[dTO-DO] <&d><parse:<proc[dtodo_get_translation].context[command-check-no-task-line]>>"
           - queue clear
         }
         - flag player dtodo[<c.args.get[2]>]:<-:
         - if <pl.has_flag[dtodo].not> {
-          - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success]>>"
+          - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success-empty]>>"
           - queue clear
         }
-        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success-empty]>>"
+        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success]>>"
         
-      - case null||list:
+      - case null:
         - if <player.has_flag[dtodo].not> {
           - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-add]>>"
           - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-remove]>>"
@@ -60,20 +60,20 @@ dtodo_get_translation:
     - if <def[key]> == null {
       - determine "<&c>Invalid translation key specified!"
     }
-    - define language <s@dtodo_translations.yaml_key[config.language]||null>
-    - if !<def[translation].is[==].to[null]> {
-      - determine <def[translation]>
+    - define language <s@dtodo_translations.yaml_key[translations.config.language]||null>
+    - define translation <s@dtodo_translations.yaml_key[translations.%language%.%key%]||null>
+    - if <def[translation]> != null {
+      - determine %translation%
     } else {
-      - determine "s@dtodo_translations.yaml_key.[translations.english.<def[key]>]||Error processing message>"
+      - determine "<s@dtodo_translations.yaml_key[translations.english.%key%]>||Error processing message!"
     }
 #TODO:
 # - If needed, I'll maybe add the possibility to translate the command args (new, tp, remove, list).
 dtodo_translations:
     type: yaml data
-    debug: false
     translations:
       config:
-        language: english
+        language: french
       english:
         command-add-missing-name: Please specify a name for the task you want to add.
         command-add-created: The task has been added to your to-do list. You now have <&a><player.flag[dtodo].as_list.size.round> <&d>to-do task listed.
@@ -89,19 +89,19 @@ dtodo_translations:
         # todo list display
         todo-list-display: <&a>YOUR dTODO LIST
       french:
-        command-add-missing-name: Veuillez indiquer un nom pour la tâche que vous voulez crééer.
-        command-add-created: La tâche a été ajoutée à votre to-do liste. Il vous reste <&a><player.flag[dtodo].as_list.size.round> <&d>tâches listées.
+        command-add-missing-name: Veuillez indiquer un nom pour la tâche que vous voulez créer.
+        command-add-created: La tâche a été ajoutée à votre liste. Il vous reste <&a><player.flag[dtodo].as_list.size.round> <&d>tâches listées.
         # command 'check'
         command-check-missing-number: Veuillez indiquer le numéro de la tâche que vous voulez supprimer.
-        command-check-no-task: Vous n'avez aucune tâche dans votre to-do liste pour le moment. Vous pouvez en ajouter une avec l'aide de la commande <&e>'<&b><context.alias> add<&e>'<&d>.
-        command-check-no-task-line: Vous n'avez aucune tâche à la ligne <&a><c.args.get[2]><&d>. Vous avez encore <&a><pl.flag[dtodo].as_list.size.round> <&d>tâches dans votre to-do liste. Vous pouvez en ajouter de nouvelles à l'aide de la commande <&e>'<&b><context.alias> add<&e>'<&d>.
-        command-check-success: La tâche a été rayée de votre liste. Il vous reste <&a><pl.flag[dtodo].as_list.size.round> <&d>dans votre liste de tâches dTodo. On se remet au travail!
-        command-check-success-empty: Super! Votre dTodo liste est désormais vide. Créez une nouvelle tâche à l'aide de <&e>'<&b><context.alias> add<&e>'<&d>!
+        command-check-no-task: Vous n'avez aucune tâche dans votre liste de tâches pour le moment. Vous pouvez en ajouter une avec l'aide de la commande <&e>'<&b>/<context.alias> add<&e>'<&d>.
+        command-check-no-task-line: Vous n'avez aucune tâche à la ligne <&a><c.args.get[2]><&d>. Vous avez encore <&a><pl.flag[dtodo].as_list.size.round> <&d>tâches dans votre liste de tâches. Vous pouvez en ajouter de nouvelles à l'aide de la commande <&e>'<&b>/<context.alias> add<&e>'<&d>.
+        command-check-success: La tâche a été rayée de votre liste. Il vous reste <&a><pl.flag[dtodo].as_list.size.round> <&d>dans votre liste de tâches. On se remet au travail !
+        command-check-success-empty: Super! Votre liste de tâches est désormais vide. Créez une nouvelle tâche à l'aide de <&e>'<&b>/<context.alias> add<&e>'<&d>!
         # case 'null' || no arg
-        todo-empty-add: Votre liste de tâches dTodo est vide. Vous pouvez ajouter de nouvelles tâches à l'aide de la commande <&e>'<&b><context.alias> add<&e>'<&d>.
-        todo-empty-remove: Pour retirer une tâche de votre liste dTodo, utilisez la commande  <&e>'<&b><context.alias> check [numéro de tâche]<&e>'<&d>.
+        todo-empty-add: Votre liste de tâches est vide. Vous pouvez ajouter de nouvelles tâches à l'aide de la commande <&e>'<&b>/<context.alias> add<&e>'<&d>.
+        todo-empty-remove: Pour retirer une tâche de votre liste, utilisez la commande  <&e>'<&b>/<context.alias> check [numéro de tâche]<&e>'<&d>.
         # todo list display
-        todo-list-display: VOTRE LISTE DE TÂCHES dTODO
+        todo-list-display: VOTRE LISTE DE TÂCHES
       spanish:
         command-add-missing-name: Please specify a name for the task you want to add.
         command-add-created: The task has been added to your to-do list. You now have <&a><player.flag[dtodo].as_list.size.round> <&d>to-do task listed.
