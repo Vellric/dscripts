@@ -14,7 +14,7 @@
 # The only rules with this script is to have fun.
 # Happy coding!
 ##############################################
-# Message de bienvenue en français
+#      Message de bienvenue en français      #  
 ##############################################
 # Bonjour! Premièrement, merci d'utiliser dHomes. Ce script a été réalisé par Vellric en septembre 2016.
 # À la fin du script, vous trouverez des options pour changer la langue du script. Il est présentement disponible en trois langues: 
@@ -71,7 +71,7 @@ dHomes:
         
       - case new:
         - if <c.args.get[2].trim.length||0> == 0 {
-          - narrate "<&c>[dHomes] Please specify a name for the home you want to create."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-missing-name]>>"
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
@@ -81,47 +81,47 @@ dHomes:
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:<player.location>
         - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
-        - narrate "<&d>[dHomes] Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do '/<context.alias> tp <c.args.get[2]>'."
+        - narrate "<&d>[dHomes] <parse:<proc[dhomes_get_translation].context[command-new-house-created]>>"
         
       - case tp:
         - if <c.args.get[2].trim.length||0> == 0 {
-          - narrate "<&c>[dHomes] Please specify the name of the home where you want to teleport."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-tp-missing-name]>>"
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes to teleport to right now. You can create one with '/<c.alias> new'."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-tp-no-homes]>>"
           - queue clear
         }
         - teleport <player> <yaml[<pl.uuid>_dHomes].read[<c.args.get[2]>]>
-        - narrate "<&d>[dHomes] Welcome home! You have been teleported to your home <&b>'<c.args.get[2]>'<&d>."
+        - narrate "<&d>[dHomes] <parse:<proc[dhomes_get_translation].context[command-tp-welcome]>>"
         
       - case remove:
         - if <c.args.get[2].trim.length||0> == 0 {
-          - narrate "<&c>[dHomes] Please specify the name of the home you want to remove."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-remove-home-dont-exist]>>"
           - queue clear
         }
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
-          - "<&c>[dHomes] Sorry, you don't have any homes to delete right now. You can create one with '/<c.alias> new'."
+          - "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-remove-missing-name]>>"
           - queue clear
         }
         - if <yaml[<pl.uuid>_dHomes].contains[<c.args.get[2]>].not> {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes named '<&b><c.args.get[2]><&d>'."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-remove-no-homes]>>"
           - queue clear
         }
         - yaml id:<pl.uuid>_dHomes set <c.args.get[2]>:!
         - yaml savefile:/dHomes/<pl.uuid>.yml id:<pl.uuid>_dHomes
-        - narrate "<&d>[dHomes] Your home named '<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'."
+        - narrate "<&d>[dHomes] <parse:<proc[dhomes_get_translation].context[command-remove-sucess]>>"
         
       - case list:
         - if !<server.has_file[/dHomes/<pl.uuid>.yml]> {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'."
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-list-no-homes]>>"
           - queue clear
         }
         - if <yaml[<pl.uuid>_dHomes].list_keys[].size||0> == 0 {
-          - narrate "<&c>[dHomes] Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'." 
+          - narrate "<&c>[dHomes] <parse:<proc[dhomes_get_translation].context[command-list-no-homes]>>" 
           - queue clear
         }
-        - narrate "<&a>###### dHomes List ######"
+        - narrate "<&a>###### <parse:<proc[dhomes_get_translation].context[command-list-header]>> ######"
         - foreach <yaml[<pl.uuid>_dHomes].list_keys[]> {
           - narrate "<&e>- [%loop_index%] %value%"
         }
@@ -175,7 +175,7 @@ dhomes_translations:
         # command 'list'
         command-list-no-homes: Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'.
         command-list-header: dHomes List
-        # case null
+        # case 'null'
         command-information: Usage
       
       # French translation by Vellric / Traduction française par Vellric / SPANISH HERE :D
@@ -195,6 +195,7 @@ dhomes_translations:
         # Commande 'list'
         command-list-no-homes: Désolé, vous n'avez aucune maison à afficher pour le moment. Vous pouvez en créer une nouvelle à l'aide de '/<c.alias> new'.
         command-list-header: Liste de vos dMaisons
+        # Cas 'null'
         command-information: Utilisation
         
       # Spanih translation by xenmai / Traduction espagnole par xenmai / SPANISH HERE :D
