@@ -1,31 +1,31 @@
 
 ##############################################
-#         English welcome message            #    
+#         English welcoming message            #    
 ##############################################
-# Hi and welcome to dHomes! This script has been made by Vellric
-# on September 2016, on request from Noiknez. At the end of the file you will find
-# options to set the language to english, french or even spanish. 
-# If needed, don't hesitate to change things on this script to fit your needs.
-# You are pleased to only let the tracker at the end of the file, so I'm able to see how many people
+# Hi and welcome to dHomes! This script was made by Vellric
+# on September 2016, on request from Noiknez. At the end of the file, you will find
+# options to set the language to English, French or Spanish. 
+# If needed, don't hesitate to change things on the script to fit your needs.
+# Please let the tracker at the end of the file, so I'm able to see how many people
 # are using my work.
-# If you want to talk with me about this script, to give me suggestions or anything, you can find me 
-# on the Denizen IRC channel (#denizen-dev on EsperNet IRC server). Else of that, you are free to 
-# open an issue on the GitHub page. I hope this script will be useful for you!
-# The only rules with this script is to have fun.
+# If you want to talk with me about this script, or give suggestions or anything, you can find me 
+# on the Denizen IRC channel (#denizen-dev on EsperNet IRC server). Other than that, you are free to 
+# open an issue on the GitHub page. I hope this script will be useful to you!
+# The only rule with this script is: Have fun!
 # Happy coding!
 ##############################################
 #      Message de bienvenue en français      #
 ##############################################
 # Bonjour! Premièrement, merci d'utiliser dHomes. Ce script a été réalisé par Vellric en septembre 2016.
 # À la fin du script, vous trouverez des options pour changer la langue du script. Il est présentement disponible en trois langues: 
-# le français, l'anglais et l'espagnol. Au besoin, n'hésitez pas à faire des changements dans le script pour refléter vos besoins. 
-# C'est la raison pour laquelle je l'ai publié : afin qu'il soit utile. La seule chose que je vous demanderais, ce serait de ne pas
+# français, anglais et espagnol. Au besoin, n'hésitez pas à faire des changements dans le script pour refléter vos besoins. 
+# C'est la raison pour laquelle je l'ai publié : afin qu'il soit utile. La seule chose que je vous demande, c'est de ne pas
 # retirer le «tracker» à la fin du script. Il me permet de savoir combien de personnes utilisent mes scripts. 
-# Si vous désirez communiquer avec moi afin de me signaler un bug, de me faire une suggestion ou toute autre chose,
-# vous pourrez me retrouver sur le canal IRC de Denizen (#denizen-dev sur le serveur IRC EsperNet). Vous pouvez également 
+# Si vous désirez communiquer avec moi afin de me signaler un bug, de me faire une suggestion, ou toute autre chose,
+# vous me trouverez sur le canal IRC de Denizen (#denizen-dev sur le serveur IRC EsperNet). Vous pouvez également 
 # me rejoindre sur GitHub. Sentez-vous libre d'ouvrir une «issue».
-# Avant de vous laisser, j'aimerais simplement vous signaler que j'impose une seule règle aux gens qui utilisnet ce script:
-# Avoir du plaisir.
+# Avant de vous laisser, j'aimerais simplement vous signaler que j'impose une seule règle aux gens qui utilisent ce script:
+# Avoir du plaisir!
 # Bon codage!
 ##############################################
 #      Mensaje de bienvenida en español      #    
@@ -148,12 +148,12 @@ dhomes_get_translation:
     }
     
 #TODO:
-# - If needed, I'll maybe add the possibility to translate the command args (new, tp, remove, list).
+# - If needed, maybe I'll add the possibility to translate the command args (new, tp, remove, list).
 dhomes_translations:
     type: yaml data
     translations:
       config:
-        # !!! You need to put this value to: english, french or spanish, depending on the language you want.
+        # !!! You need to put this value to: english, french, or spanish, depending on the language you want.
         language: english
         
       # English translation by Vellric and Pandalyser / Traduction anglaise par Vellric et Pandalyser / Traducción al inglés por Vellric y Pandalyser
@@ -163,15 +163,15 @@ dhomes_translations:
         command-new-house-created: Your new home named <&r><&b><c.args.get[2]><&r><&d> has been created. You can now do <&e>'<&b>/<context.alias> tp <c.args.get[2]><&e>'<&d>.
         # command 'tp'
         command-tp-missing-name: Please specify the name of the home where you want to teleport.
-        command-tp-no-homes: Sorry, you don't have any homes to teleport to right now. You can create one with <&e>'<&b>/<c.alias> new<&e>'<&c>.
+        command-tp-no-homes: Sorry, you don't have any home to teleport to right now. You can create one with <&e>'<&b>/<c.alias> new<&e>'<&c>.
         command-tp-welcome: Welcome home! You have been teleported to your home <&e>'<&b><c.args.get[2]><&e>'<&d>.
         # command 'remove'
         command-remove-missing-name: Please specify the name of the home you want to remove.
-        command-remove-no-homes: Sorry, you don't have any homes to delete right now. You can create one with <&e>'<&b>/<c.alias> new<&e>'<&c>.
-        command-remove-home-dont-exist: Sorry, you don't have any homes named <&e>'<&b><c.args.get[2]><&e>'<&c>.
+        command-remove-no-homes: Sorry, you don't have any home to delete right now. You can create one with <&e>'<&b>/<c.alias> new<&e>'<&c>.
+        command-remove-home-dont-exist: Sorry, you don't have any home named <&e>'<&b><c.args.get[2]><&e>'<&c>.
         command-remove-sucess: Your home named <&e>'<&b><c.args.get[2]><&d>' has been deleted. You can create a new one with '/<c.alias> new'.
         # command 'list'
-        command-list-no-homes: Sorry, you don't have any homes to list right now. You can create one with '/<c.alias> new'.
+        command-list-no-homes: Sorry, you don't have any home to list right now. You can create one with '/<c.alias> new'.
         command-list-header: dHomes List
         # case 'null'
         command-information: Usage
