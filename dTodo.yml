@@ -42,11 +42,8 @@ dTodoList:
         - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success]>>"
         
       - case null:
-        - if <player.has_flag[dtodo].not> {
-          - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-add]>>"
-          - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-remove]>>"
-          - queue clear
-        }
+        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-add]>>"
+        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-remove]>>"
         - narrate "<&a>###### <&d><parse:<proc[dtodo_get_translation].context[todo-list-display]>> <&a>######"
         - foreach <player.flag[dtodo].as_list> {
           - narrate "<yellow>- [%loop_index%] %value%"
