@@ -42,8 +42,8 @@ dTodoList:
         - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[command-check-success]>>"
         
       - case null:
-        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-add]>>"
-        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-empty-remove]>>"
+        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-add-info]>>"
+        - narrate "<&d>[dTO-DO] <parse:<proc[dtodo_get_translation].context[todo-remove-info]>>"
         - narrate "<&a>###### <&d><parse:<proc[dtodo_get_translation].context[todo-list-display]>> <&a>######"
         - foreach <player.flag[dtodo].as_list> {
           - narrate "<yellow>- [%loop_index%] %value%"
@@ -95,8 +95,8 @@ dtodo_translations:
         command-check-success: La tâche a été rayée de votre liste. Il vous reste <&a><pl.flag[dtodo].as_list.size.round> <&d>dans votre liste de tâches. On se remet au travail !
         command-check-success-empty: Super! Votre liste de tâches est désormais vide. Créez une nouvelle tâche à l'aide de <&e>'<&b>/<context.alias> add<&e>'<&d>!
         # case 'null' || no arg
-        todo-empty-add: Votre liste de tâches est vide. Vous pouvez ajouter de nouvelles tâches à l'aide de la commande <&e>'<&b>/<context.alias> add<&e>'<&d>.
-        todo-empty-remove: Pour retirer une tâche de votre liste, utilisez la commande  <&e>'<&b>/<context.alias> check [numéro de tâche]<&e>'<&d>.
+        todo-add-info: Vous pouvez ajouter de nouvelles tâches à l'aide de la commande <&e>'<&b>/<context.alias> add<&e>'<&d>.
+        todo-remove-info: Pour retirer une tâche de votre liste, utilisez la commande  <&e>'<&b>/<context.alias> check [numéro de tâche]<&e>'<&d>.
         # todo list display
         todo-list-display: VOTRE LISTE DE TÂCHES
       spanish:
@@ -109,8 +109,8 @@ dtodo_translations:
         command-check-success: The task has been checked. You still have <&a><pl.flag[dtodo].as_list.size.round> <&d>tasks to-do. Get back to work!
         command-check-success-empty: Great! Your to-do list is now empty. Create new task with <&e>'<&b><context.alias> add<&e>'<&d>!
         # case 'null' || no arg
-        todo-empty-add: Your to-do list is empty right now. You can add tasks to it with <&e>'<&b><context.alias> add<&e>'<&d>.
-        todo-empty-remove: When you wish to remove a task, do <&e>'<&b><context.alias> check [task_number]<&e>'<&d>.
+        todo-add-info: You can add tasks to your list with <&e>'<&b><context.alias> add<&e>'<&d>.
+        todo-remove-info: When you wish to remove a task, do <&e>'<&b><context.alias> check [task_number]<&e>'<&d>.
         # todo list display
         todo-list-display: <&a>YOUR dTODO LIST
         
