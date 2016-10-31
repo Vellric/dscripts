@@ -1,45 +1,4 @@
 
-##############################################
-#         English welcoming message            #    
-##############################################
-# Hi and welcome to dHomes! This script was made by Vellric
-# on September 2016, on request from Noiknez. At the end of the file, you will find
-# options to set the language to English, French or Spanish. 
-# If needed, don't hesitate to change things on the script to fit your needs.
-# Please let the tracker at the end of the file, so I'm able to see how many people
-# are using my work.
-# If you want to talk with me about this script, or give suggestions or anything, you can find me 
-# on the Denizen IRC channel (#denizen-dev on EsperNet IRC server). Other than that, you are free to 
-# open an issue on the GitHub page. I hope this script will be useful to you!
-# The only rule with this script is: Have fun!
-# Happy coding!
-##############################################
-#      Message de bienvenue en français      #
-##############################################
-# Bonjour! Premièrement, merci d'utiliser dHomes. Ce script a été réalisé par Vellric en septembre 2016.
-# À la fin du script, vous trouverez des options pour changer la langue du script. Il est présentement disponible en trois langues: 
-# français, anglais et espagnol. Au besoin, n'hésitez pas à faire des changements dans le script pour refléter vos besoins. 
-# C'est la raison pour laquelle je l'ai publié : afin qu'il soit utile. La seule chose que je vous demande, c'est de ne pas
-# retirer le «tracker» à la fin du script. Il me permet de savoir combien de personnes utilisent mes scripts. 
-# Si vous désirez communiquer avec moi afin de me signaler un bug, de me faire une suggestion, ou toute autre chose,
-# vous me trouverez sur le canal IRC de Denizen (#denizen-dev sur le serveur IRC EsperNet). Vous pouvez également 
-# me rejoindre sur GitHub. Sentez-vous libre d'ouvrir une «issue».
-# Avant de vous laisser, j'aimerais simplement vous signaler que j'impose une seule règle aux gens qui utilisent ce script:
-# Avoir du plaisir!
-# Bon codage!
-##############################################
-#      Mensaje de bienvenida en español      #    
-##############################################
-# ¡Hola y gracias por utilizar dHomes! Esta script ha sido realizada por Velrric en Septiembre del 2016, por encargo de Noiknez.
-# Al final del archivo encontrarás la opción para fijar el idioma a inglés, francés o español. 
-# No dudes en modificar esta script a tu gusto si lo necesitas.
-# Solo te pido que no elimines el módulo de seguimiento al final de la script, así puedo saber cuantas personas usan mi trabajo.
-# Si quieres hablar conmigo sobre esta script, para darme opiniones o sugerencias, puedes encontrarme en el canal IRC de Denizen 
-# (servidor #denizen-dev en EsperNet IRC). Además de eso, siéntete libre de abrir un asunto en la página de GitHub. 
-# ¡Espero que esta script te sea útil!
-# La única norma para esta script es disfrutar con ella.
-# ¡Feliz programación!
-#############################################
 ################################
 #                              #
 #      dHomes by Vellric       #                
